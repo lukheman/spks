@@ -9,8 +9,10 @@ use App\Models\KasPembayaran;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Penyakit;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Dashboard')]
 class Dashboard extends Component
 {
     public string $bulan;
