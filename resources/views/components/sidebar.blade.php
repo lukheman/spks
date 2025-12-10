@@ -48,6 +48,7 @@
         @endif
 
         @if ($role === Role::PEMBINA_OSIS)
+
             <x-nav-link icon="bi-people"
                 href="{{ route('user-table')}}"
                 :active="request()->routeIs('user-table')">
@@ -55,16 +56,17 @@
             </x-nav-link>
 
             <x-nav-link icon="bi-building"
-                href="{{ route('kelas-table')}}"
-                :active="request()->routeIs('kelas-table')">
-                Kelas
-            </x-nav-link>
-
-            <x-nav-link icon="bi-building"
                 href="{{ route('siswa-table')}}"
                 :active="request()->routeIs('siswa-table')">
                 Siswa
             </x-nav-link>
+
+            <x-nav-link icon="bi-building"
+                href="{{ route('saldo')}}"
+                :active="request()->routeIs('saldo')">
+                    Saldo
+            </x-nav-link>
+
 
 
         @endif
@@ -86,6 +88,20 @@
                 href="{{ route('pengeluaran-table')}}"
                 :active="request()->routeIs('pengeluaran-table')">
                 Pengeluaran
+            </x-nav-link>
+
+        <li class="sidebar-title">Laporan</li>
+
+            <x-nav-link icon="bi-building"
+                href="{{ route('laporan-pemasukan')}}"
+                :active="request()->routeIs('laporan-pemasukan')">
+                Laporan Pemasukan
+            </x-nav-link>
+
+            <x-nav-link icon="bi-building"
+                href="{{ route('laporan-pengeluaran')}}"
+                :active="request()->routeIs('laporan-pengeluaran')">
+                Laporan Pengeluaran
             </x-nav-link>
         @endif
 

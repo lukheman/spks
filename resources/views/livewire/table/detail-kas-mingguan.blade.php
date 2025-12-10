@@ -38,13 +38,31 @@ use App\Enums\StatusPembayaran;
     </div>
 
 
-    <div class="card mb-3">
-        <div class="card-body">
-            <div><strong>Kelas:</strong> {{ $user->kelas->nama_kelas ?? '-' }}</div>
-            <div><strong>Bulan:</strong> {{ $bulan }} / {{ $tahun }}</div>
-            <div><strong>Nominal Mingguan:</strong> Rp 1.000</div>
+<div class="row">
+    <div class="col-6">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <div><strong>Kelas:</strong> {{ $user->kelas->nama_kelas ?? '-' }}</div>
+                <div><strong>Bulan:</strong> {{ $bulan }} / {{ $tahun }}</div>
+                <div><strong>Nominal Mingguan:</strong> Rp 1.000</div>
+            </div>
         </div>
     </div>
+
+    {{-- total pemasukan bulan ini --}}
+    <div class="col-6">
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <h5 class="mb-2"><strong>Total Pemasukan Bulan Ini</strong></h5>
+
+                <div class="fs-4">
+    {{ $totalPendapatanBulan }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="card">
 
@@ -53,7 +71,7 @@ use App\Enums\StatusPembayaran;
     <div class="row">
 
         <!-- Filter Bulan -->
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label class="form-label mb-0">Bulan</label>
             <select class="form-control" wire:model.live="bulan">
                 <option value="">-- Pilih Bulan --</option>
@@ -73,7 +91,7 @@ use App\Enums\StatusPembayaran;
         </div>
 
         <!-- Filter Tahun -->
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label class="form-label mb-0">Tahun</label>
             <select class="form-control" wire:model.live="tahun">
                 <option value="">-- Pilih Tahun --</option>
@@ -84,7 +102,7 @@ use App\Enums\StatusPembayaran;
         </div>
 
         <!-- Filter Minggu -->
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label class="form-label mb-0">Minggu Ke</label>
             <select class="form-control" wire:model.live="minggu_ke">
                 @for ($i = 1; $i <= 4; $i++)
@@ -92,6 +110,17 @@ use App\Enums\StatusPembayaran;
                 @endfor
             </select>
         </div>
+
+<div class="col-md-2">
+
+    <button type="button" wire:click="setor" class="btn btn-primary mt-4">
+        Setor Iuran Bulan Ini
+    </button>
+
+</div>
+
+
+
 
     </div>
 

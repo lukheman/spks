@@ -12,16 +12,13 @@
                                 <label for="username" class="form-label">Username atau Email</label>
                                 <input wire:model="email" type="text" class="form-control" id="username" name="username" placeholder="Masukkan username atau email" required>
                                 @error('email')
-
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input wire:model="password" type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
-
                                 @error('password')
-
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -30,7 +27,7 @@
                             </div>
                         </form>
                         <!-- <p class="text-center mt-3 mb-0"> -->
-                        <!--     Belum punya akun? <a href="/register" class="text-success">Daftar sekarang</a> -->
+                        <!-- Belum punya akun? <a href="/register" class="text-success">Daftar sekarang</a> -->
                         <!-- </p> -->
                     </div>
                 </div>

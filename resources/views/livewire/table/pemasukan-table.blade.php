@@ -11,22 +11,40 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body">
-                    <div class="form-group mb-3">
-    <label for="kas_pembayaran_id">Kas Pembayaran Id</label>
-    <input wire:model="form.kas_pembayaran_id" type="text" class="form-control" id="kas_pembayaran_id">
-    @error('form.kas_pembayaran_id')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
+<div class="modal-body">
+
+
+<div class="form-group">
+    <label for="tanggal">Tanggal</label>
+    <input type="date" class="form-control" id="tanggal" wire:model="form.tanggal">
 </div>
-<div class="form-group mb-3">
-    <label for="nominal">Nominal</label>
-    <input wire:model="form.nominal" type="text" class="form-control" id="nominal">
-    @error('form.nominal')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
+
+    <!-- PEMASUKAN EXTERNAL -->
+    <input type="hidden" value="1" wire:model="form.pemasukan_external">
+
+    <!-- NOMINAL -->
+    <div class="form-group mb-3">
+        <label class="fw-semibold">Nominal Pemasukan</label>
+        <div class="input-group">
+            <span class="input-group-text">Rp</span>
+            <input wire:model="form.nominal" type="number" class="form-control" placeholder="Masukkan nominal...">
+        </div>
+        @error('form.nominal')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
+    <!-- KETERANGAN -->
+    <div class="form-group mb-3">
+        <label class="fw-semibold">Keterangan</label>
+        <textarea wire:model="form.keterangan" class="form-control" rows="3"
+                  placeholder="Contoh: Penjualan bibit, pemasukan donasi, dll"></textarea>
+        @error('form.keterangan')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
 </div>
-            </div>
 
             <div class="modal-footer">
                 <button type="button" wire:click="save" class="btn btn-primary">
@@ -104,38 +122,6 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal-detail" tabindex="-1" wire:ignore.self>
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Pemasukan</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <form wire:submit.prevent="save">
-                  <fieldset disabled>
-                    <div class="form-group mb-3">
-    <label for="kas_pembayaran_id">Kas Pembayaran Id</label>
-    <input wire:model="form.kas_pembayaran_id" type="text" class="form-control" id="kas_pembayaran_id">
-    @error('form.kas_pembayaran_id')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div>
-<div class="form-group mb-3">
-    <label for="nominal">Nominal</label>
-    <input wire:model="form.nominal" type="text" class="form-control" id="nominal">
-    @error('form.nominal')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
-</div>
-  </fieldset>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
 
         <div class="card">
         <div class="card-body">
@@ -191,7 +177,9 @@
         <div class="card-header">
 
 
-    </div>
+        <button class="btn btn-primary" wire:click="add">Tambah Pemasukan</button>
+
+        </div>
 
         <div class="card-body">
 
@@ -200,8 +188,7 @@
     <tr>
       <th scope="col">#</th>
     <th>Tanggal</th>
-    <th>Nama Siswa</th>
-    <th>Nama Kelas</th>
+    <th>Sumber Dana</th>
       <th scope="col">Nominal</th>
     </tr>
   </thead>
@@ -210,8 +197,7 @@
     <tr>
       <th scope="row">{{ $loop->index + $this->pemasukanList->firstItem() }}</th>
         <td>{{$item->created_at}}</td>
-    <td>{{ $item->kasPembayaran->siswa->nama_siswa}}</td>
-    <td>{{ $item->kasPembayaran->kelas->nama_kelas}}</td>
+    <td>{{ $item->keterangan}}</td>
       <td>{{ $item->nominal_label }}</td>
 </tr>
 @empty

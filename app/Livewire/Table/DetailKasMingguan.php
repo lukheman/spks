@@ -4,6 +4,7 @@ namespace App\Livewire\Table;
 
 use App\Models\KasPembayaran;
 use App\Models\KasMingguan;
+use App\Models\Pemasukan;
 use App\Models\Siswa;
 use App\Models\User;
 use Livewire\Component;
@@ -32,6 +33,8 @@ class DetailKasMingguan extends Component
     public string $bulan;
     public string $minggu_ke;
 
+    public string $totalPendapatanBulan;
+
     public function mount()
     {
         $this->user = auth()->user();
@@ -46,6 +49,20 @@ class DetailKasMingguan extends Component
         $this->tahun = $mingguan->tahun ?? date('Y');
         $this->bulan = $mingguan->bulan ?? date('m');
         $this->minggu_ke = $mingguan->minggu_ke ?? 1;
+
+        $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $this->bulan, $this->tahun);
+    }
+
+    public function setor() {
+        Pemasukan::query()->create([
+
+            'tanggal' => now(),
+            'nominal' =>KasPembayaran::totalPendapatanPerBulan($this->user->kelas->id, $this->bulan, $this->tahun),
+            'keterangan' => $this->user->kelas->nama_kelas
+
+        ]);
+
+        $this->notifySuccess('Berhasil menyetor pemasukan ke bendahara osis');
     }
 
     public function toggleBayar($id)

@@ -10,12 +10,14 @@ class PengeluaranForm extends Form
 {
     public ?Pengeluaran $pengeluaran = null;
 
+    public $tanggal;
     public float $nominal = 0.0;
     public string $keterangan = '';
 
     protected function rules(): array
     {
         return [
+            'tanggal' => 'required|date',
             'nominal' => 'required',
             'keterangan' => 'required',
         ];
@@ -24,6 +26,7 @@ class PengeluaranForm extends Form
     protected function messages(): array
     {
         return [
+            'tanggal.required' => 'Tanggal wajib diisi.',
             'nominal.required' => 'Nominal wajib diisi.',
             'keterangan.required' => 'Keterangan wajib diisi.',
         ];
@@ -51,7 +54,8 @@ class PengeluaranForm extends Form
     public function fill($id) {
 
         $this->pengeluaran = Pengeluaran::query()->find($id);
-                $this->nominal = $this->pengeluaran->nominal;
+        $this->nominal = $this->pengeluaran->nominal;
+        $this->tanggal = $this->pengeluaran->tanggal;
         $this->keterangan = $this->pengeluaran->keterangan;
 
     }

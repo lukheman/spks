@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\Role;
 use App\Models\KasPembayaran;
+use App\Models\Saldo;
 use App\Models\User;
 use App\Models\Kelas;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,6 +30,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'bendahara_osis@gmail.com',
             'role' => Role::BENDAHARA_OSIS
         ]);
+
+        Saldo::query()->create(['nominal' => 0]);
 
         $this->call([
             KelasSeeder::class,

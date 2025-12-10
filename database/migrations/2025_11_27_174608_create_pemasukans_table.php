@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('pemasukan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kas_pembayaran_id')->constrained('kas_pembayaran');
+            $table->date('tanggal');
+            $table->boolean('pemasukan_external')->default(false);
             $table->decimal('nominal', 15, 2);
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

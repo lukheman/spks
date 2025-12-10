@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +11,23 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: url('{{ asset('images/sekolah/foto4.jpeg') }}') no-repeat center center fixed;
+            background-size: cover;
             color: #212529;
+            position: relative;
         }
-
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 123, 255, 0.1); /* Overlay biru ringan biar gambar ga terlalu distracting */
+            z-index: -1;
+        }
         .hero {
-            background: linear-gradient(45deg, #212529, #343a40, #212529);
+            background: linear-gradient(45deg, #007bff, #0d6efd, #007bff);
             background-size: 200% 200%;
             animation: gradientAnimation 15s ease infinite;
             color: white;
@@ -25,7 +35,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
@@ -36,13 +45,11 @@
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
             z-index: 0;
         }
-
         .hero-content {
             position: relative;
             z-index: 1;
         }
-
-        /* Tambah siluet sapi subtle di hero */
+        /* Tambah siluet sapi subtle di hero, ubah warna biar biru */
         .hero::after {
             content: '';
             position: absolute;
@@ -54,84 +61,71 @@
             opacity: 0.3;
             z-index: 1;
         }
-
         .navbar {
-            background: linear-gradient(to right, #212529, #343a40);
+            background: linear-gradient(to right, #007bff, #0d6efd);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .navbar-brand,
         .nav-link {
             color: white !important;
             transition: color 0.3s ease;
         }
-
         .nav-link:hover {
             color: #ced4da !important;
         }
-
         .feature-icon {
             font-size: 2.5rem;
-            color: #212529;
+            color: #007bff; /* Ubah ke biru */
             transition: transform 0.3s ease;
         }
-
         .feature-icon:hover {
             transform: scale(1.2);
         }
-
         .section-title {
             font-weight: 700;
             margin-bottom: 40px;
-            color: #343a40;
+            color: #0d6efd; /* Biru gelap */
             position: relative;
         }
-
         .section-title::after {
             content: '';
             width: 60px;
             height: 4px;
-            background: #495057;
+            background: #007bff;
             position: absolute;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
         }
-
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
             border-radius: 15px;
             background: white;
         }
-
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2); /* Shadow biru */
         }
-
         .btn-success {
-            background: linear-gradient(to right, #212529, #343a40);
+            background: linear-gradient(to right, #007bff, #0d6efd);
             border: none;
             border-radius: 25px;
             padding: 12px 30px;
             transition: all 0.3s ease;
             color: white;
         }
-
         .btn-success:hover {
-            background: linear-gradient(to right, #343a40, #212529);
+            background: linear-gradient(to right, #0d6efd, #007bff);
             transform: translateY(-2px);
         }
-
         footer {
-            background: linear-gradient(to right, #1e1e1e, #212529);
+            background: linear-gradient(to right, #0056b3, #007bff); /* Biru lebih gelap */
             color: #adb5bd;
             padding: 30px 0;
             position: relative;
         }
-
         footer::before {
             content: '';
             position: absolute;
@@ -139,10 +133,9 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(to right, transparent, #495057, transparent);
+            background: linear-gradient(to right, transparent, #0d6efd, transparent);
         }
-
-        /* Tambah pola spot sapi di footer */
+        /* Tambah pola spot sapi di footer, ubah opacity */
         footer::after {
             content: '';
             position: absolute;
@@ -154,21 +147,17 @@
             background-position: 0 0, 20px 20px;
             opacity: 0.1;
         }
-
         @keyframes gradientAnimation {
             0% {
                 background-position: 0% 50%;
             }
-
             50% {
                 background-position: 100% 50%;
             }
-
             100% {
                 background-position: 0% 50%;
             }
         }
-
         .login-container {
             min-height: calc(100vh - 200px);
             display: flex;
@@ -178,9 +167,7 @@
         }
     </style>
 </head>
-
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -195,7 +182,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('landing') }}" wire:navigate>Beranda</a>
                     </li>
-
                     <li class="nav-item">
                         @auth
                             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
@@ -207,17 +193,13 @@
             </div>
         </div>
     </nav>
-
     {{ $slot }}
-
     <!-- Footer -->
     <footer class="text-center">
         <div class="container">
             <p class="mb-0">&copy; 2025 SPKS. Semua Hak Dilindungi.</p>
         </div>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

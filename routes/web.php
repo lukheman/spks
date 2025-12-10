@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LaporanController;
 use App\Livewire\Table\DetailKasMingguan;
 use Illuminate\Support\Facades\Route;
 
@@ -13,8 +14,21 @@ Route::get('/pemasukan', \App\Livewire\Table\PemasukanTable::class)->name('pemas
 Route::get('/pengeluaran', \App\Livewire\Table\PengeluaranTable::class)->name('pengeluaran-table')->middleware('auth');
 Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->middleware('auth');
 
+Route::get('/saldo', \App\Livewire\Saldo::class)->name('saldo')->middleware('auth');
+
+Route::get('/laporan-pemasukan', \App\Livewire\LaporanPemasukan::class)->name('laporan-pemasukan')->middleware('auth');
+
+Route::get('/laporan-pengeluaran', \App\Livewire\LaporanPengeluaran::class)->name('laporan-pengeluaran')->middleware('auth');
+
 Route::get('/login', \App\Livewire\Login::class)->name('login');
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');
+
+Route::get('/laporan/pengeluaran/cetak/{bulan}/{tahun}', [LaporanController::class, 'cetakPengeluaran'])
+    ->name('laporan.pengeluaran.cetak');
+
+Route::get('/laporan/pemasukan/{bulan}/{tahun}', 
+    [LaporanController::class, 'cetakPemasukan']
+)->name('laporan.pemasukan.cetak');
 
 Route::prefix('kas')->group(function () {
 

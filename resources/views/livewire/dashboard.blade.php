@@ -66,52 +66,5 @@
         </div>
     </div>
 
-@elseif($role === Role::PEMBINA_OSIS)
-
-<div class="col-12">
-    <h5 class="mb-3">Galeri Foto Sekolah</h5>
-</div>
-
-
-<!-- Foto 1 -->
-<div class="col-6 col-lg-3 col-md-4">
-    <div class="card">
-        <img src="{{ asset('images/sekolah/foto1.jpeg') }}"
-             class="card-img-top"
-             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
-    </div>
-</div>
-
-<!-- Foto 2 -->
-<div class="col-6 col-lg-3 col-md-4">
-    <div class="card">
-        <img src="{{ asset('images/sekolah/foto2.jpeg') }}"
-             class="card-img-top"
-             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
-    </div>
-</div>
-
-<!-- Foto 3 -->
-<div class="col-6 col-lg-3 col-md-4">
-    <div class="card">
-        <img src="{{ asset('images/sekolah/foto3.jpeg') }}"
-             class="card-img-top"
-             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
-    </div>
-</div>
-
-<!-- Foto 4 -->
-<div class="col-6 col-lg-3 col-md-4">
-    <div class="card">
-        <img src="{{ asset('images/sekolah/foto4.jpeg') }}"
-             class="card-img-top"
-             style="height: 180px; object-fit: cover;" alt="Foto Sekolah">
-    </div>
-</div>
-<div class="alert alert-warning" role="alert">
-SMK NEGERI 10 KOLAKA Adalah sekolah menengah yang terletak di Kabupaten Kolaka, Kecamatan Tanggetada yang dimana sekolah ini membuat kegiatan Jumat seribu (JUMSER) yang dimana yaitu pada setiap hari Jumat siswa di SMK Negeri 10 Kolaka mengumpulkan uang seribu rupiah yang dimana tujuannya untuk menumbuhkan semangat anak-anak serta belajar untuk bersedekah
-</div>
-
-
     @endif
 </div>

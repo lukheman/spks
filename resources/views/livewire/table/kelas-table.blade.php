@@ -187,7 +187,7 @@ $role = $user->role;
 
             <div class="row">
                 <div class="col-6">
-                            @if ($role === Role::BENDAHARA_KELAS)
+                            @if ($role === Role::BENDAHARA_OSIS)
                     <button class="btn btn-primary" wire:click="add">Tambah Kelas</button>
 
                             @endif
@@ -221,7 +221,6 @@ $role = $user->role;
                             <th scope="row">{{ $loop->index + $this->kelasList->firstItem() }}</th>
                             <td>{{ $item->nama_kelas }}</td>
 
-                            @if ($role === Role::BENDAHARA_KELAS)
                             <td class="text-end">
                                 <button type="button" class="btn btn-secondary"
                                     wire:click="detail({{ $item->id }})">
@@ -235,9 +234,7 @@ $role = $user->role;
                                     wire:click="delete({{ $item->id }})">
                                     <i class="bi bi-trash"></i> Hapus
                                 </button>
-                            </td>
-                        @elseif($role === Role::BENDAHARA_OSIS || $role === Role::PEMBINA_OSIS )
-                        <td class="text-end">
+                        @if($role === Role::BENDAHARA_OSIS || $role === Role::PEMBINA_OSIS )
 
                                 <button type="button" class="btn btn-secondary"
                                     wire:click="showSiswaList({{ $item->id }})">

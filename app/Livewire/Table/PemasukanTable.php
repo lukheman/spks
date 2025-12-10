@@ -34,7 +34,6 @@ class PemasukanTable extends Component
     public function pemasukanList()
     {
         return Pemasukan::query()
-            ->with('kasPembayaran.siswa', 'kasPembayaran.kelas')
             ->when($this->search, function($query) {
                 $query->whereAny([
                     'nominal'

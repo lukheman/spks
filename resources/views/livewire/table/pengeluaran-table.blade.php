@@ -12,13 +12,22 @@
             </div>
 
             <div class="modal-body">
-                    <div class="form-group mb-3">
-    <label for="nominal">Nominal</label>
-    <input wire:model="form.nominal" type="text" class="form-control" id="nominal">
-    @error('form.nominal')
-        <small class="text-danger">{{ $message }}</small>
-    @enderror
+
+<div class="form-group">
+    <label for="tanggal">Tanggal</label>
+    <input type="date" class="form-control" id="tanggal" wire:model="form.tanggal">
 </div>
+
+    <div class="form-group mb-3">
+        <label class="fw-semibold">Nominal Pengeluaran</label>
+        <div class="input-group">
+            <span class="input-group-text">Rp</span>
+            <input wire:model="form.nominal" type="number" class="form-control" placeholder="Masukkan nominal...">
+        </div>
+        @error('form.nominal')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
 <div class="form-group mb-3">
     <label for="keterangan">Keterangan</label>
     <input wire:model="form.keterangan" type="text" class="form-control" id="keterangan">
@@ -48,6 +57,11 @@
 
             <div class="modal-body">
                   <fieldset disabled>
+<div class="form-group">
+    <label for="tanggal">Tanggal</label>
+    <input type="date" class="form-control" id="tanggal" wire:model="form.tanggal">
+</div>
+
                     <div class="form-group mb-3">
     <label for="nominal">Nominal</label>
     <input wire:model="form.nominal" type="text" class="form-control" id="nominal">
@@ -128,7 +142,16 @@
             </div>
 
             <div class="modal-body">
+
+<div class="form-group">
+    <label for="tanggal">Tanggal</label>
+    <input type="date" class="form-control" id="tanggal" wire:model="form.tanggal">
+</div>
+
+
                     <div class="form-group mb-3">
+
+
     <label for="nominal">Nominal</label>
     <input wire:model="form.nominal" type="text" class="form-control" id="nominal">
     @error('form.nominal')

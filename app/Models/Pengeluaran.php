@@ -66,4 +66,18 @@ class Pengeluaran extends Model
         return 'Rp ' . number_format($total, 0, ',', '.');
     }
 
+/**
+ * Ambil total pengeluaran bulan ini dalam format rupiah
+ */
+public static function getLabelTotalPengeluaranBulan()
+{
+    $now = Carbon::now();
+
+    $total = self::whereYear('created_at', $now->year)
+                ->whereMonth('created_at', $now->month)
+                ->sum('nominal');
+
+    return 'Rp ' . number_format($total, 0, ',', '.');
+}
+
 }

@@ -10,11 +10,6 @@ class Pemasukan extends Model
     protected $table = 'pemasukan';
     protected $guarded = [];
 
-    public function kasPembayaran()
-    {
-        return $this->belongsTo(KasPembayaran::class);
-    }
-
     public function getNominalLabelAttribute()
     {
         return 'Rp ' . number_format($this->nominal, 0, ',', '.');
@@ -70,4 +65,15 @@ class Pemasukan extends Model
         $total = self::getTotalByMonth($tanggal);
         return 'Rp ' . number_format($total, 0, ',', '.');
     }
+
+public static function getLabelTotalPemasukanBulan()
+{
+    $now = Carbon::now();
+
+    $total = self::whereYear('created_at', $now->year)
+                ->whereMonth('created_at', $now->month)
+                ->sum('nominal');
+
+    return 'Rp ' . number_format($total, 0, ',', '.');
+}
 }
