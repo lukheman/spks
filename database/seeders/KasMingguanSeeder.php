@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\KasMingguan;
+use Illuminate\Database\Seeder;
 
 class KasMingguanSeeder extends Seeder
 {

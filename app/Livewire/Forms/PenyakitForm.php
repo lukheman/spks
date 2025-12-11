@@ -3,9 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Penyakit;
-use Illuminate\Validation\Rule;
-use Livewire\Form;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Form;
 
 class PenyakitForm extends Form
 {
@@ -66,7 +65,7 @@ class PenyakitForm extends Form
             // Store new photo
             $path = $this->photo->store('photos', 'public');
             $penyakit->update([
-                'photo' => $path
+                'photo' => $path,
             ]);
         }
 
@@ -95,7 +94,7 @@ class PenyakitForm extends Form
             // Store new photo
             $path = $this->photo->store('photos', 'public');
             $this->penyakit->update([
-                'photo' => $path
+                'photo' => $path,
             ]);
 
         }

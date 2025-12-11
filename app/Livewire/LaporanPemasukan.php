@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Traits\WithModal;
 use App\Traits\WithNotify;
 use Livewire\Component;
 
@@ -11,12 +10,14 @@ class LaporanPemasukan extends Component
     use WithNotify;
 
     public $bulan;
+
     public $tahun;
 
     public function cetak()
     {
-        if (!$this->bulan || !$this->tahun) {
+        if (! $this->bulan || ! $this->tahun) {
             $this->notifyWarning('Bulan dan Tahun wajib dipilih!');
+
             return;
         }
 

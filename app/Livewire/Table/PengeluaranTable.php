@@ -2,21 +2,20 @@
 
 namespace App\Livewire\Table;
 
-use App\Models\Pengeluaran;
 use App\Livewire\Forms\PengeluaranForm;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\Pengeluaran;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class PengeluaranTable extends Component
 {
-
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
 
@@ -36,14 +35,14 @@ class PengeluaranTable extends Component
     #[Computed]
     public function pengeluaranList()
     {
-    return Pengeluaran::query()
-        ->when($this->search, function($query) {
-           $query->whereAny(['nominal', 'keterangan'], 'like', '%' . $this->search . '%');
-        })
-            // Filter berdasarkan bulan (YYYY-MM)
-            ->when($this->bulan, function($query) {
+        return Pengeluaran::query()
+            ->when($this->search, function ($query) {
+                $query->whereAny(['nominal', 'keterangan'], 'like', '%'.$this->search.'%');
+            })
+                // Filter berdasarkan bulan (YYYY-MM)
+            ->when($this->bulan, function ($query) {
                 $query->whereYear('created_at', substr($this->bulan, 0, 4))
-                      ->whereMonth('created_at', substr($this->bulan, 5, 2));
+                    ->whereMonth('created_at', substr($this->bulan, 5, 2));
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -66,21 +65,24 @@ class PengeluaranTable extends Component
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-detail');
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-edit');
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->form->update();
 
         $this->notifySuccess('Pengeluaran berhasil diperbarui!');

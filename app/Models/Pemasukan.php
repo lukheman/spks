@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class Pemasukan extends Model
 {
     protected $table = 'pemasukan';
+
     protected $guarded = [];
 
     public function getNominalLabelAttribute()
     {
-        return 'Rp ' . number_format($this->nominal, 0, ',', '.');
+        return 'Rp '.number_format($this->nominal, 0, ',', '.');
     }
 
     /**
@@ -27,7 +28,7 @@ class Pemasukan extends Model
                 $date = Carbon::createFromFormat('Y-m', $tanggal);
 
                 $query->whereYear('created_at', $date->year)
-                      ->whereMonth('created_at', $date->month);
+                    ->whereMonth('created_at', $date->month);
 
             } catch (\Exception $e) {
                 // Abaikan jika parsing gagal
@@ -47,7 +48,7 @@ class Pemasukan extends Model
                 $date = Carbon::createFromFormat('Y-m', $tanggal);
 
                 return $query->whereYear('created_at', $date->year)
-                             ->whereMonth('created_at', $date->month);
+                    ->whereMonth('created_at', $date->month);
 
             } catch (\Exception $e) {
                 // Abaikan jika salah format
@@ -63,17 +64,18 @@ class Pemasukan extends Model
     public static function getTotalLabelAttribute(?string $tanggal = null)
     {
         $total = self::getTotalByMonth($tanggal);
-        return 'Rp ' . number_format($total, 0, ',', '.');
+
+        return 'Rp '.number_format($total, 0, ',', '.');
     }
 
-public static function getLabelTotalPemasukanBulan()
-{
-    $now = Carbon::now();
+    public static function getLabelTotalPemasukanBulan()
+    {
+        $now = Carbon::now();
 
-    $total = self::whereYear('created_at', $now->year)
-                ->whereMonth('created_at', $now->month)
-                ->sum('nominal');
+        $total = self::whereYear('created_at', $now->year)
+            ->whereMonth('created_at', $now->month)
+            ->sum('nominal');
 
-    return 'Rp ' . number_format($total, 0, ',', '.');
-}
+        return 'Rp '.number_format($total, 0, ',', '.');
+    }
 }

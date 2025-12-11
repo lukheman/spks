@@ -4,12 +4,13 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class MakeTableCommand extends Command
 {
     protected $signature = 'table {name}';
+
     protected $description = 'Generate a Livewire table component and its view using stubs';
 
     private function generateTable(array $columnList, string $varName)
@@ -19,7 +20,7 @@ class MakeTableCommand extends Command
         // Header kolom
         $thead = "      <th scope=\"col\">#</th>\n";
         foreach ($columnList as $column) {
-            $thead .= "      <th scope=\"col\">" . Str::title(str_replace('_', ' ', $column)) . "</th>\n";
+            $thead .= '      <th scope="col">'.Str::title(str_replace('_', ' ', $column))."</th>\n";
         }
         $thead .= "      <th class=\"float-end\">Aksi</th>\n";
 
@@ -138,7 +139,6 @@ class MakeTableCommand extends Command
     }
 
     private function generateRules(array $columnList): string
-
     {
         // TODO: buat default validation menjadi lebih bagus
         $lines = [];
@@ -193,7 +193,7 @@ class MakeTableCommand extends Command
             'deleted_at',
             'email_verified_at',
             'remember_token',
-            'password'
+            'password',
         ];
 
         return array_values(array_diff($columns, $fieldToDelete));
@@ -202,7 +202,7 @@ class MakeTableCommand extends Command
     public function handle()
     {
         $name = $this->argument('name'); // contoh: user
-        $filesystem = new Filesystem();
+        $filesystem = new Filesystem;
 
         // Nama class (UserTable)
         $class = Str::studly(Str::singular($name));
@@ -215,12 +215,12 @@ class MakeTableCommand extends Command
         // Path output
         $formPath = app_path("Livewire/Forms/{$class}Form.php");
         $componentPath = app_path("Livewire/Table/{$class}Table.php");
-        $viewPath = resource_path('views/livewire/table/' . Str::kebab($class) . '-table.blade.php');
+        $viewPath = resource_path('views/livewire/table/'.Str::kebab($class).'-table.blade.php');
 
         // Data dinamis
         $model = Str::studly(Str::singular($name));
         $varName = Str::camel($model);
-        $view = 'livewire.table.' . Str::kebab($class) . '-table';
+        $view = 'livewire.table.'.Str::kebab($class).'-table';
 
         $columnList = $this->getColumnListing($name);
 
@@ -228,7 +228,7 @@ class MakeTableCommand extends Command
         $form = $this->generateForm($columnList);
 
         $fields = $this->generateFields($columnList, Str::singular($name));
-        $rules  = $this->generateRules($columnList);
+        $rules = $this->generateRules($columnList);
         $messages = $this->generateMessages($columnList);
 
         $assignments = $this->generateAssignments($columnList, $varName);
@@ -247,7 +247,6 @@ class MakeTableCommand extends Command
 
         $this->info("✅ Livewire form created: {$formPath}");
 
-
         // ===== Generate Component =====
         $componentStub = $filesystem->get($componentStubPath);
 
@@ -257,7 +256,7 @@ class MakeTableCommand extends Command
             $componentStub
         );
 
-        $componentContent = str_replace('[columnList]', "['" . implode("', '", $columnList) . "']", $componentContent);
+        $componentContent = str_replace('[columnList]', "['".implode("', '", $columnList)."']", $componentContent);
 
         $filesystem->ensureDirectoryExists(dirname($componentPath));
         $filesystem->put($componentPath, $componentContent);
@@ -285,6 +284,6 @@ class MakeTableCommand extends Command
         //     $this->warn("⚠️ View already exists: {$viewPath}");
         // }
 
-        $this->info("🎉 Done!");
+        $this->info('🎉 Done!');
     }
 }

@@ -11,18 +11,21 @@ class Kelas extends Model
     use HasFactory;
 
     protected $table = 'kelas';
+
     protected $guarded = [];
 
-    public function siswa() {
+    public function siswa()
+    {
         return $this->hasMany(Siswa::class);
     }
 
-    public function bendahara() {
+    public function bendahara()
+    {
         return $this->belongsTo(User::class, 'bendahara_id');
     }
 
-    public function kasPembayaran() {
+    public function kasPembayaran()
+    {
         return $this->hasMany(KasPembayaran::class, 'kelas_id');
     }
-
 }

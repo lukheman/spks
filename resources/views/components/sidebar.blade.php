@@ -33,13 +33,13 @@
 
         <li class="sidebar-title">Navigasi Utama</li>
 
+        @if ($role === Role::BENDAHARA_KELAS)
+
         <x-nav-link icon="bi-speedometer2"
             href="{{ route('dashboard')}}"
             :active="request()->routeIs('dashboard')">
             Beranda
         </x-nav-link>
-
-        @if ($role === Role::BENDAHARA_KELAS)
             <x-nav-link icon="bi-calendar-week"
                 href="{{ route('kas.mingguan.detail')}}"
                 :active="request()->routeIs('kas.mingguan.detail')">
@@ -55,28 +55,54 @@
                 Pengguna
             </x-nav-link>
 
-            <x-nav-link icon="bi-building"
+            <x-nav-link icon="bi-person-lines-fill"
                 href="{{ route('siswa-table')}}"
                 :active="request()->routeIs('siswa-table')">
                 Siswa
             </x-nav-link>
 
-            <x-nav-link icon="bi-building"
+            <x-nav-link icon="bi-wallet2"
                 href="{{ route('saldo')}}"
                 :active="request()->routeIs('saldo')">
                     Saldo
             </x-nav-link>
 
+        <li class="sidebar-title">Laporan</li>
 
+            <x-nav-link icon="bi-file-earmark-arrow-up"
+                href="{{ route('laporan-pemasukan')}}"
+                :active="request()->routeIs('laporan-pemasukan')">
+                Laporan Pemasukan
+            </x-nav-link>
+
+            <x-nav-link icon="bi-file-earmark-arrow-down"
+                href="{{ route('laporan-pengeluaran')}}"
+                :active="request()->routeIs('laporan-pengeluaran')">
+                Laporan Pengeluaran
+            </x-nav-link>
 
         @endif
 
         @if ($role === Role::BENDAHARA_OSIS)
-            <x-nav-link icon="bi-building"
+        <x-nav-link icon="bi-speedometer2"
+            href="{{ route('dashboard')}}"
+            :active="request()->routeIs('dashboard')">
+            Beranda
+        </x-nav-link>
+
+            <x-nav-link icon="bi-collection"
                 href="{{ route('kelas-table')}}"
                 :active="request()->routeIs('kelas-table')">
                 Kelas
             </x-nav-link>
+
+            <x-nav-link icon="bi-person-lines-fill"
+                href="{{ route('siswa-table')}}"
+                :active="request()->routeIs('siswa-table')">
+                Siswa
+            </x-nav-link>
+
+        <li class="sidebar-title">Laporan</li>
 
             <x-nav-link icon="bi-arrow-up-circle"
                 href="{{ route('pemasukan-table')}}"
@@ -90,19 +116,6 @@
                 Pengeluaran
             </x-nav-link>
 
-        <li class="sidebar-title">Laporan</li>
-
-            <x-nav-link icon="bi-building"
-                href="{{ route('laporan-pemasukan')}}"
-                :active="request()->routeIs('laporan-pemasukan')">
-                Laporan Pemasukan
-            </x-nav-link>
-
-            <x-nav-link icon="bi-building"
-                href="{{ route('laporan-pengeluaran')}}"
-                :active="request()->routeIs('laporan-pengeluaran')">
-                Laporan Pengeluaran
-            </x-nav-link>
         @endif
 
         <li class="sidebar-title">Akun</li>
@@ -113,5 +126,6 @@
         </x-nav-link>
     </ul>
 </div>
+
     </div>
 </div>

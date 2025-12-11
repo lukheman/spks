@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Siswa;
 use App\Models\KasMingguan;
 use App\Models\KasPembayaran;
+use App\Models\Siswa;
+use Illuminate\Database\Seeder;
 
 class KasPembayaranSeeder extends Seeder
 {

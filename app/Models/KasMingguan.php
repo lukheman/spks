@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class KasMingguan extends Model
 {
     use HasFactory;
+
     protected $table = 'kas_mingguan';
+
     protected $guarded = [];
 
     public function pembayaran()

@@ -10,8 +10,11 @@ class PemasukanForm extends Form
     public ?Pemasukan $pemasukan = null;
 
     public $tanggal;
+
     public bool $pemasukan_external = false;
+
     public float $nominal = 0.0;
+
     public string $keterangan = '';
 
     protected function rules(): array

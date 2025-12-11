@@ -3,25 +3,24 @@
 namespace App\Livewire\Table;
 
 use App\Enums\Role;
-use App\Models\Kelas;
 use App\Livewire\Forms\KelasForm;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\User;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Kelas')]
 class KelasTable extends Component
 {
-
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
 
@@ -30,15 +29,16 @@ class KelasTable extends Component
     #[Computed]
     public function kelasList()
     {
-    return Kelas::query()
-        ->when($this->search, function($query) {
-           $query->whereAny(['nama_kelas'], 'like', '%' . $this->search . '%');
-        })
-        ->paginate(10);
+        return Kelas::query()
+            ->when($this->search, function ($query) {
+                $query->whereAny(['nama_kelas'], 'like', '%'.$this->search.'%');
+            })
+            ->paginate(10);
     }
 
     #[Computed]
-    public function bendaharaList() {
+    public function bendaharaList()
+    {
         return User::query()->where('role', Role::BENDAHARA_KELAS)->get();
     }
 
@@ -54,7 +54,8 @@ class KelasTable extends Component
             ->paginate(10);
     }
 
-    public function showSiswaList($id) {
+    public function showSiswaList($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-siswa-list');
@@ -78,21 +79,24 @@ class KelasTable extends Component
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-detail');
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-edit');
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->form->update();
 
         $this->notifySuccess('Kelas berhasil diperbarui!');

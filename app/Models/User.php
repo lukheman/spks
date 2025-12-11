@@ -35,11 +35,12 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => Role::class
+            'role' => Role::class,
         ];
     }
 
-    public function kelas() { 
+    public function kelas()
+    {
         return $this->hasOne(Kelas::class, 'bendahara_id');
     }
 }

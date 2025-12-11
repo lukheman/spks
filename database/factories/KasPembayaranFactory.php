@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\StatusPembayaran;
-use App\Models\Siswa;
-use App\Models\Kelas;
 use App\Models\KasMingguan;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class KasPembayaranFactory extends Factory

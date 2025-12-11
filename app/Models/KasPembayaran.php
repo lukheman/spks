@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class KasPembayaran extends Model
 {
     use HasFactory;
 
     protected $table = 'kas_pembayaran';
-    protected $guarded = [];
 
+    protected $guarded = [];
 
     public function siswa()
     {
@@ -29,7 +29,6 @@ class KasPembayaran extends Model
         return $this->belongsTo(KasMingguan::class, 'kas_mingguan_id');
     }
 
-
     public function pemasukan()
     {
         return $this->hasOne(Pemasukan::class, 'kas_pembayaran_id');
@@ -38,9 +37,9 @@ class KasPembayaran extends Model
     public static function jumlahPemasukanLabel($kelas_id)
     {
         $jumlah = self::countSudahBayarBulanIni($kelas_id) * 1000;
-        return "Rp " . number_format($jumlah, 0, ',', '.');
-    }
 
+        return 'Rp '.number_format($jumlah, 0, ',', '.');
+    }
 
     public static function countSudahBayarBulanIni($kelas_id)
     {
@@ -48,7 +47,7 @@ class KasPembayaran extends Model
             ->where('kelas_id', $kelas_id)
             ->whereHas('kasMingguan', function ($query) {
                 $query->where('bulan', now()->month)
-                      ->where('tahun', now()->year);
+                    ->where('tahun', now()->year);
             })
             ->count();
     }
@@ -63,7 +62,7 @@ class KasPembayaran extends Model
             ->where('kelas_id', $kelas_id)
             ->whereHas('kasMingguan', function ($query) use ($tanggal) {
                 $query->where('bulan', $tanggal->month)
-                      ->where('tahun', $tanggal->year);
+                    ->where('tahun', $tanggal->year);
             })
             ->count();
 
@@ -73,12 +72,10 @@ class KasPembayaran extends Model
         return $total;
     }
 
-
     public static function totalPendapatanPerBulanLabel($kelas_id, $bulan, $tahun)
     {
         $total = self::totalPendapatanPerBulan($kelas_id, $bulan, $tahun);
 
-        return "Rp " . number_format($total, 0, ',', '.');
+        return 'Rp '.number_format($total, 0, ',', '.');
     }
-
 }

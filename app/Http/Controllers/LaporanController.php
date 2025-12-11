@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class LaporanController extends Controller
 {
     public function cetakPengeluaran($bulan, $tahun)
     {
-        if (!is_numeric($bulan) || !is_numeric($tahun)) {
+        if (! is_numeric($bulan) || ! is_numeric($tahun)) {
             abort(404);
         }
 
@@ -35,9 +34,10 @@ class LaporanController extends Controller
 
         return $pdf->stream("Laporan_Pengeluaran_{$bulan}_{$tahun}.pdf");
     }
- public function cetakPemasukan($bulan, $tahun)
+
+    public function cetakPemasukan($bulan, $tahun)
     {
-        if (!is_numeric($bulan) || !is_numeric($tahun)) {
+        if (! is_numeric($bulan) || ! is_numeric($tahun)) {
             abort(404);
         }
 

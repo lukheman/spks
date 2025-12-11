@@ -2,20 +2,15 @@
 
 namespace App\Observers;
 
-use App\Enums\StatusPembayaran;
 use App\Models\KasPembayaran;
 use App\Models\Pemasukan;
 
 class KasPembayaranObserver
 {
-
     /**
      * Handle the KasPembayaran "saving" event.
      */
-    public function saving(KasPembayaran $pembayaran): void
-    {
-    }
-
+    public function saving(KasPembayaran $pembayaran): void {}
 
     /**
      * Handle the KasPembayaran "created" event.
@@ -28,23 +23,23 @@ class KasPembayaranObserver
     /**
      * Handle the KasPembayaran "updated" event.
      */
- // public function updated(KasPembayaran $kasPembayaran)
- //    {
- //        // Cek apakah field 'terbayar' berubah
- //        if ($kasPembayaran->isDirty('terbayar')) {
- //
- //            // Jika terbayar = true → buat pemasukan baru
- //            if ($kasPembayaran->terbayar) {
- //                Pemasukan::updateOrCreate(
- //                    ['kas_pembayaran_id' => $kasPembayaran->id],
- //                    ['nominal' => 1000] // nominal default mingguan
- //                );
- //            } else {
- //                // Jika terbayar = false → hapus pemasukan
- //                $kasPembayaran->pemasukan()->delete();
- //            }
- //        }
- //    }
+    // public function updated(KasPembayaran $kasPembayaran)
+    //    {
+    //        // Cek apakah field 'terbayar' berubah
+    //        if ($kasPembayaran->isDirty('terbayar')) {
+    //
+    //            // Jika terbayar = true → buat pemasukan baru
+    //            if ($kasPembayaran->terbayar) {
+    //                Pemasukan::updateOrCreate(
+    //                    ['kas_pembayaran_id' => $kasPembayaran->id],
+    //                    ['nominal' => 1000] // nominal default mingguan
+    //                );
+    //            } else {
+    //                // Jika terbayar = false → hapus pemasukan
+    //                $kasPembayaran->pemasukan()->delete();
+    //            }
+    //        }
+    //    }
 
     /**
      * Handle the KasPembayaran "deleted" event.

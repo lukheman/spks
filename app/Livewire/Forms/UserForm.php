@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Enums\Role;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class UserForm extends Form
@@ -12,8 +11,10 @@ class UserForm extends Form
     public ?User $user = null;
 
     public string $name = '';
+
     public string $email = '';
-    public ?Role  $role = null;
+
+    public ?Role $role = null;
 
     protected function rules(): array
     {
@@ -52,10 +53,11 @@ class UserForm extends Form
         $this->reset();
     }
 
-    public function fill($id) {
+    public function fill($id)
+    {
 
         $this->user = User::query()->find($id);
-                $this->name = $this->user->name;
+        $this->name = $this->user->name;
         $this->email = $this->user->email;
         $this->role = $this->user->role;
 

@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Siswa;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class SiswaForm extends Form
@@ -11,6 +10,7 @@ class SiswaForm extends Form
     public ?Siswa $siswa = null;
 
     public string $nama_siswa = '';
+
     public ?int $kelas_id;
 
     protected function rules(): array
@@ -48,10 +48,11 @@ class SiswaForm extends Form
         $this->reset();
     }
 
-    public function fill($id) {
+    public function fill($id)
+    {
 
         $this->siswa = Siswa::query()->find($id);
-                $this->nama_siswa = $this->siswa->nama_siswa;
+        $this->nama_siswa = $this->siswa->nama_siswa;
         $this->kelas_id = $this->siswa->kelas_id;
 
     }

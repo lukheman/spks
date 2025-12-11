@@ -10,12 +10,14 @@ class LaporanPengeluaran extends Component
     use WithNotify;
 
     public $bulan;
+
     public $tahun;
 
     public function cetak()
     {
-        if (!$this->bulan || !$this->tahun) {
+        if (! $this->bulan || ! $this->tahun) {
             $this->notifyWarning('Bulan dan Tahun wajib dipilih!');
+
             return;
         }
 

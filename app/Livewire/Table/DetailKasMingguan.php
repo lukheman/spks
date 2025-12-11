@@ -2,16 +2,14 @@
 
 namespace App\Livewire\Table;
 
-use App\Models\KasPembayaran;
 use App\Models\KasMingguan;
+use App\Models\KasPembayaran;
 use App\Models\Pemasukan;
-use App\Models\Siswa;
 use App\Models\User;
-use Livewire\Component;
-use Livewire\Attributes\Computed;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
-use Livewire\Attributes\Title;
+use Livewire\Attributes\Computed;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class DetailKasMingguan extends Component
@@ -28,9 +26,11 @@ class DetailKasMingguan extends Component
 
     public ?User $user;
 
-    //filter
+    // filter
     public string $tahun = '2025';
+
     public string $bulan;
+
     public string $minggu_ke;
 
     public string $totalPendapatanBulan;
@@ -53,12 +53,13 @@ class DetailKasMingguan extends Component
         $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $this->bulan, $this->tahun);
     }
 
-    public function setor() {
+    public function setor()
+    {
         Pemasukan::query()->create([
 
             'tanggal' => now(),
-            'nominal' =>KasPembayaran::totalPendapatanPerBulan($this->user->kelas->id, $this->bulan, $this->tahun),
-            'keterangan' => $this->user->kelas->nama_kelas
+            'nominal' => KasPembayaran::totalPendapatanPerBulan($this->user->kelas->id, $this->bulan, $this->tahun),
+            'keterangan' => $this->user->kelas->nama_kelas,
 
         ]);
 
@@ -70,7 +71,7 @@ class DetailKasMingguan extends Component
         $pembayaran = KasPembayaran::findOrFail($id);
 
         // Toggle true/false
-        $pembayaran->terbayar = !$pembayaran->terbayar;
+        $pembayaran->terbayar = ! $pembayaran->terbayar;
         $pembayaran->save();
 
         $this->notifySuccess('Status pembayaran diperbarui');
@@ -91,27 +92,25 @@ class DetailKasMingguan extends Component
         $mingguan = KasMingguan::query()
             ->where('tahun', $this->tahun)
             ->where('bulan', $this->bulan)
-            ->when($this->minggu_ke, fn($q) =>
-                $q->where('minggu_ke', $this->minggu_ke)
+            ->when($this->minggu_ke, fn ($q) => $q->where('minggu_ke', $this->minggu_ke)
             )
             ->first();
 
-        if (!$mingguan) {
+        if (! $mingguan) {
             return collect(); // Jika tidak ada data, return collection kosong
         }
 
         return KasPembayaran::query()
             ->with('siswa')
             ->where('kas_mingguan_id', $mingguan->id)
-            ->whereHas('siswa', fn($q) =>
-                $q->where('kelas_id', $kelasId)
+            ->whereHas('siswa', fn ($q) => $q->where('kelas_id', $kelasId)
             )
             ->orderBy('siswa_id')
             ->paginate(10);
     }
 
-
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->selectedKasPembayaran = KasPembayaran::findOrFail($id);
         $this->jumlah_bayar = $this->selectedKasPembayaran->jumlah_bayar;
@@ -126,8 +125,8 @@ class DetailKasMingguan extends Component
             'jumlah_bayar' => ['required', 'numeric', 'min:0'],
         ], [
             'jumlah_bayar.required' => 'Jumlah bayar wajib diisi.',
-            'jumlah_bayar.numeric'  => 'Jumlah bayar harus berupa angka.',
-            'jumlah_bayar.min'      => 'Jumlah bayar tidak boleh kurang dari 0.',
+            'jumlah_bayar.numeric' => 'Jumlah bayar harus berupa angka.',
+            'jumlah_bayar.min' => 'Jumlah bayar tidak boleh kurang dari 0.',
         ]);
 
         $this->selectedKasPembayaran->jumlah_bayar = $this->jumlah_bayar;

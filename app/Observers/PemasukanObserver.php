@@ -11,7 +11,7 @@ class PemasukanObserver
     {
         $saldo = Saldo::first();
         $saldo->update([
-            'nominal' => $saldo->nominal + $pemasukan->nominal
+            'nominal' => $saldo->nominal + $pemasukan->nominal,
         ]);
     }
 
@@ -23,7 +23,7 @@ class PemasukanObserver
 
             $saldo = Saldo::first();
             $saldo->update([
-                'nominal' => ($saldo->nominal - $SaldoLama) + $SaldoBaru
+                'nominal' => ($saldo->nominal - $SaldoLama) + $SaldoBaru,
             ]);
         }
     }
@@ -32,7 +32,7 @@ class PemasukanObserver
     {
         $saldo = Saldo::first();
         $saldo->update([
-            'nominal' => $saldo->nominal - $pemasukan->nominal
+            'nominal' => $saldo->nominal - $pemasukan->nominal,
         ]);
     }
 }

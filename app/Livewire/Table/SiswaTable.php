@@ -2,24 +2,23 @@
 
 namespace App\Livewire\Table;
 
+use App\Livewire\Forms\SiswaForm;
 use App\Models\Kelas;
 use App\Models\Siswa;
-use App\Livewire\Forms\SiswaForm;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Kelas')]
 class SiswaTable extends Component
 {
-
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
 
@@ -27,7 +26,8 @@ class SiswaTable extends Component
 
     public $selectedKelasId = null;
 
-    public function pilihKelas($kelasId = null) {
+    public function pilihKelas($kelasId = null)
+    {
         $this->selectedKelasId = $kelasId;
         $this->resetPage();
     }
@@ -35,16 +35,17 @@ class SiswaTable extends Component
     #[Computed]
     public function siswaList()
     {
-    return Siswa::query()
-        ->when($this->search, function($query) {
-           $query->whereAny(['nama_siswa', 'kelas_id'], 'like', '%' . $this->search . '%');
-        })
-        ->where('kelas_id', $this->selectedKelasId)
-        ->paginate(10);
+        return Siswa::query()
+            ->when($this->search, function ($query) {
+                $query->whereAny(['nama_siswa', 'kelas_id'], 'like', '%'.$this->search.'%');
+            })
+            ->where('kelas_id', $this->selectedKelasId)
+            ->paginate(10);
     }
 
     #[Computed]
-    public function kelasList() {
+    public function kelasList()
+    {
         return Kelas::query()->withCount('siswa')->get();
     }
 
@@ -66,21 +67,24 @@ class SiswaTable extends Component
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-detail');
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-edit');
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->form->update();
 
         $this->notifySuccess('Siswa berhasil diperbarui!');

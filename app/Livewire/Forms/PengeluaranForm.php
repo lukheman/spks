@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Pengeluaran;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class PengeluaranForm extends Form
@@ -11,7 +10,9 @@ class PengeluaranForm extends Form
     public ?Pengeluaran $pengeluaran = null;
 
     public $tanggal;
+
     public float $nominal = 0.0;
+
     public string $keterangan = '';
 
     protected function rules(): array
@@ -51,7 +52,8 @@ class PengeluaranForm extends Form
         $this->reset();
     }
 
-    public function fill($id) {
+    public function fill($id)
+    {
 
         $this->pengeluaran = Pengeluaran::query()->find($id);
         $this->nominal = $this->pengeluaran->nominal;

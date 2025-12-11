@@ -22,7 +22,6 @@ class ProfileForm extends Form
 
     public string $password = '';
 
-
     public function rules(): array
     {
         return [

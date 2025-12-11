@@ -8,6 +8,7 @@ use Livewire\Component;
 class Saldo extends Component
 {
     public $saldo = 0;
+
     public $updated_at = '-';
 
     public function mount()

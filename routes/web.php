@@ -26,7 +26,7 @@ Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logou
 Route::get('/laporan/pengeluaran/cetak/{bulan}/{tahun}', [LaporanController::class, 'cetakPengeluaran'])
     ->name('laporan.pengeluaran.cetak');
 
-Route::get('/laporan/pemasukan/{bulan}/{tahun}', 
+Route::get('/laporan/pemasukan/{bulan}/{tahun}',
     [LaporanController::class, 'cetakPemasukan']
 )->name('laporan.pemasukan.cetak');
 

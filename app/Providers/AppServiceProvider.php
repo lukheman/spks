@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use App\Models\KasPembayaran;
-use App\Observers\KasPembayaranObserver;
-use Illuminate\Support\ServiceProvider;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Observers\KasPembayaranObserver;
 use App\Observers\PemasukanObserver;
 use App\Observers\PengeluaranObserver;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         KasPembayaran::observe(KasPembayaranObserver::class);
-    Pemasukan::observe(PemasukanObserver::class);
-    Pengeluaran::observe(PengeluaranObserver::class);
+        Pemasukan::observe(PemasukanObserver::class);
+        Pengeluaran::observe(PengeluaranObserver::class);
     }
 }

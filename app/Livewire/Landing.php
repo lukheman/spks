@@ -4,26 +4,27 @@ namespace App\Livewire;
 
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
-use App\Models\Penyakit;
 use Carbon\Carbon;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Livewire\Attributes\Computed;
 
 #[Layout('layouts.guest')]
 class Landing extends Component
 {
-
     public $totalPengeluaranBulan;
+
     public $totalPemasukanBulan;
 
-    public function mount() {
+    public function mount()
+    {
         $this->totalPengeluaranBulan = Pengeluaran::getLabelTotalPengeluaranBulan();
-        $this->totalPemasukanBulanl= Pemasukan::getLabelTotalPemasukanBulan();
+        $this->totalPemasukanBulanl = Pemasukan::getLabelTotalPemasukanBulan();
     }
 
     #[Computed]
-    public function pengeluaranBulanList() {
+    public function pengeluaranBulanList()
+    {
         $now = Carbon::now();
 
         return Pengeluaran::query()->whereYear('created_at', $now->year)
@@ -32,7 +33,8 @@ class Landing extends Component
     }
 
     #[Computed]
-    public function pemasukanBulanList() {
+    public function pemasukanBulanList()
+    {
         $now = Carbon::now();
 
         return Pemasukan::query()->whereYear('created_at', $now->year)

@@ -47,7 +47,7 @@ enum Role: string
     {
         return [
             self::BENDAHARA_KELAS->value,
-            self::BENDAHARA_OSIS->value
+            self::BENDAHARA_OSIS->value,
         ];
     }
 }

@@ -1,22 +1,24 @@
 <?php
+
 namespace App\Livewire\Table;
 
-use App\Models\Pemasukan;
 use App\Livewire\Forms\PemasukanForm;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\Pemasukan;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class PemasukanTable extends Component
 {
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
+
     public PemasukanForm $form;
 
     // filter
@@ -30,22 +32,22 @@ class PemasukanTable extends Component
         $this->total = Pemasukan::getTotalLabelAttribute($this->bulan);
     }
 
-#[Computed]
+    #[Computed]
     public function pemasukanList()
     {
         return Pemasukan::query()
-            ->when($this->search, function($query) {
+            ->when($this->search, function ($query) {
                 $query->whereAny([
-                    'nominal'
-                ], 'like', '%' . $this->search . '%')
-                ->orWhereHas('kasPembayaran.siswa', function($q) {
-                    $q->where('nama', 'like', '%' . $this->search . '%');
-                });
+                    'nominal',
+                ], 'like', '%'.$this->search.'%')
+                    ->orWhereHas('kasPembayaran.siswa', function ($q) {
+                        $q->where('nama', 'like', '%'.$this->search.'%');
+                    });
             })
             // Filter berdasarkan bulan (YYYY-MM)
-            ->when($this->bulan, function($query) {
+            ->when($this->bulan, function ($query) {
                 $query->whereYear('created_at', substr($this->bulan, 0, 4))
-                      ->whereMonth('created_at', substr($this->bulan, 5, 2));
+                    ->whereMonth('created_at', substr($this->bulan, 5, 2));
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);

@@ -11,9 +11,11 @@ class Siswa extends Model
     use HasFactory;
 
     protected $table = 'siswa';
+
     protected $guarded = [];
 
-    public function kelas() {
+    public function kelas()
+    {
         return $this->belongsTo(Kelas::class);
     }
 
@@ -21,5 +23,4 @@ class Siswa extends Model
     {
         return $this->hasMany(KasPembayaran::class, 'siswa_id');
     }
-
 }

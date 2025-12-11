@@ -2,23 +2,22 @@
 
 namespace App\Livewire\Table;
 
-use App\Models\User;
 use App\Livewire\Forms\UserForm;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\User;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title('Pengguna')]
 class UserTable extends Component
 {
-
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
 
@@ -27,11 +26,11 @@ class UserTable extends Component
     #[Computed]
     public function userList()
     {
-    return User::query()
-        ->when($this->search, function($query) {
-           $query->whereAny(['name', 'email', 'role'], 'like', '%' . $this->search . '%');
-        })
-        ->paginate(10);
+        return User::query()
+            ->when($this->search, function ($query) {
+                $query->whereAny(['name', 'email', 'role'], 'like', '%'.$this->search.'%');
+            })
+            ->paginate(10);
     }
 
     public function add()
@@ -51,21 +50,24 @@ class UserTable extends Component
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-detail');
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-edit');
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->form->update();
 
         $this->notifySuccess('User berhasil diperbarui!');
