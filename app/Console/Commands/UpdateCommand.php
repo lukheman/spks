@@ -13,7 +13,7 @@ class UpdateCommand extends Command
     public function handle()
     {
         // Informasi aplikasi
-        $appName = 'Nama Aplikasi: SPKS';
+        $appName = 'Nama Aplikasi: JUMSER';
         $author = 'Dibuat oleh: Akmal';
         // $license = 'Lisensi: Tidak untuk dijual kembali';
 
