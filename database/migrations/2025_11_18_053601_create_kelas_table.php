@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas');
-            $table->foreignId('bendahara_id')->unique()->constrained('users');
+            $table->foreignId('bendahara_id')->unique()->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
