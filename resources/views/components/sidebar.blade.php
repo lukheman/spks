@@ -132,7 +132,7 @@
                 Siswa
             </x-nav-link>
 
-        <li class="sidebar-title">Laporan</li>
+        <li class="sidebar-title">Mutasi</li>
 
             <x-nav-link icon="bi-arrow-up-circle"
                 href="{{ route('pemasukan-table')}}"
@@ -144,6 +144,20 @@
                 href="{{ route('pengeluaran-table')}}"
                 :active="request()->routeIs('pengeluaran-table')">
                 Pengeluaran
+            </x-nav-link>
+
+        <li class="sidebar-title">Laporan</li>
+
+            <x-nav-link icon="bi-file-earmark-arrow-up"
+                href="{{ route('laporan-pemasukan')}}"
+                :active="request()->routeIs('laporan-pemasukan')">
+                Laporan Pemasukan
+            </x-nav-link>
+
+            <x-nav-link icon="bi-file-earmark-arrow-down"
+                href="{{ route('laporan-pengeluaran')}}"
+                :active="request()->routeIs('laporan-pengeluaran')">
+                Laporan Pengeluaran
             </x-nav-link>
 
         @endif

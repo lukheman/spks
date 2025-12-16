@@ -5,6 +5,7 @@ namespace App\Livewire\Table;
 use App\Models\KasMingguan;
 use App\Models\KasPembayaran;
 use App\Models\Pemasukan;
+use App\Models\Siswa;
 use App\Models\User;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
@@ -53,6 +54,16 @@ class DetailKasMingguan extends Component
         $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $this->bulan, $this->tahun);
     }
 
+    public function updatedBulan($bulan) {
+
+        $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $bulan, $this->tahun);
+    }
+
+    public function updatedTahun($tahun) {
+
+        $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $this->bulan, $tahun);
+    }
+
     public function setor()
     {
         Pemasukan::query()->create([
@@ -68,13 +79,26 @@ class DetailKasMingguan extends Component
 
     public function toggleBayar($id)
     {
-        $pembayaran = KasPembayaran::findOrFail($id);
 
-        // Toggle true/false
-        $pembayaran->terbayar = ! $pembayaran->terbayar;
+        $pembayaran = KasPembayaran::query()
+            ->where('kas_mingguan_id', $this->mingguanId)
+            ->where('siswa_id', $id)
+            ->firstOrFail();
+
+        $pembayaran->terbayar = !$pembayaran->terbayar;
         $pembayaran->save();
 
         $this->notifySuccess('Status pembayaran diperbarui');
+        $this->totalPendapatanBulan = KasPembayaran::totalPendapatanPerBulanLabel($this->user->kelas->id, $this->bulan, $this->tahun);
+
+        $siswa = Siswa::query()->with('kelas')->find($id);
+
+        // catat ke pemasukan
+        Pemasukan::create([
+            'tanggal' => now(),
+            'nominal' => 1000,
+            'keterangan' => "{$siswa->nama_siswa} - {$siswa->kelas->nama_kelas}"
+        ]);
     }
 
     #[Computed]
@@ -83,31 +107,16 @@ class DetailKasMingguan extends Component
         return KasMingguan::findOrFail($this->mingguanId);
     }
 
-    #[Computed]
-    public function pembayaranList()
-    {
-        $kelasId = $this->user->kelas->id;
-
-        // Cari ID kas_mingguan yang sesuai filter
-        $mingguan = KasMingguan::query()
-            ->where('tahun', $this->tahun)
-            ->where('bulan', $this->bulan)
-            ->when($this->minggu_ke, fn ($q) => $q->where('minggu_ke', $this->minggu_ke)
-            )
-            ->first();
-
-        if (! $mingguan) {
-            return collect(); // Jika tidak ada data, return collection kosong
-        }
-
-        return KasPembayaran::query()
-            ->with('siswa')
-            ->where('kas_mingguan_id', $mingguan->id)
-            ->whereHas('siswa', fn ($q) => $q->where('kelas_id', $kelasId)
-            )
-            ->orderBy('siswa_id')
-            ->paginate(10);
-    }
+#[Computed]
+public function siswaList()
+{
+    return Siswa::query()
+        ->where('kelas_id', $this->user->kelas->id)
+        ->with(['kasPembayaran' => function ($query) {
+            $query->where('kas_mingguan_id', $this->mingguanId);
+        }])
+        ->paginate(10);
+}
 
     public function edit($id)
     {

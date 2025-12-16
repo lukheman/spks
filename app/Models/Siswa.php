@@ -23,4 +23,11 @@ class Siswa extends Model
     {
         return $this->hasMany(KasPembayaran::class, 'siswa_id');
     }
+
+public function isTerbayar($mingguanId)
+{
+    return $this->kasPembayaran()
+        ->where('kas_mingguan_id', $mingguanId)
+        ->value('terbayar') ?? false;
+}
 }

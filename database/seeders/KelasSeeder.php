@@ -37,7 +37,7 @@ class KelasSeeder extends Seeder
             ]);
 
             // ==== Tambah siswa ====
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 15; $i++) {
                 Siswa::query()->create([
                     'nama_siswa' => "Siswa {$i} {$formatted}",
                     'kelas_id' => $kelasModel->id,

@@ -137,10 +137,10 @@ use App\Enums\StatusPembayaran;
                 </thead>
 
                 <tbody>
-                    @forelse ($this->pembayaranList as $item)
+                    @forelse ($this->siswaList as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->siswa->nama_siswa }}</td>
+                            <td>{{ $item->nama_siswa }}</td>
 
 <td>
     <div class="form-check form-check-flat form-check-primary">
@@ -148,8 +148,8 @@ use App\Enums\StatusPembayaran;
             <input
                 type="checkbox"
                 class="form-check-input"
-                wire:click="toggleBayar({{ $item->id }})"
-                {{ $item->terbayar ? 'checked' : '' }}
+    wire:click="toggleBayar({{ $item->id }})"
+    {{ $item->isTerbayar($mingguanId) ? 'checked' : '' }}
             >
             <i class="input-helper"></i>
         </label>
@@ -172,9 +172,7 @@ use App\Enums\StatusPembayaran;
 
             <div class="card-footer">
 
-@if ($this->pembayaranList instanceof \Illuminate\Pagination\LengthAwarePaginator && $this->pembayaranList->count())
-    {{ $this->pembayaranList->links() }}
-@endif
+    {{ $this->siswaList->links() }}
 
 
             </div>
